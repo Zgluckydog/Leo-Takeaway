@@ -117,5 +117,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         return new PageResult(total, records);
     }
 
+    /**
+     * 员工状态启用禁用
+     *
+     * */
+    @Override
+    public void startOrStop(Integer status, Long id) {
+        employeeMapper.startOrStop(status, id);
+    }
+
 
 }
