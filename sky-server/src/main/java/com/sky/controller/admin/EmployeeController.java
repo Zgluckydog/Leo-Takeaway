@@ -137,4 +137,13 @@ public class EmployeeController {
         employeeService.update(employeeDTO);
         return Result.success();
     }
+
+    /**
+     * 修改密码
+     * */
+    public Result updatePassword(Integer id, String oldPassword, String newPassword) {
+        log.info("修改密码员工ID为：{}", id);
+        employeeService.updatePassword(id, oldPassword, newPassword);
+        return Result.success();
+    }
 }

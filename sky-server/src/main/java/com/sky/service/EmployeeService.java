@@ -38,4 +38,9 @@ public interface EmployeeService {
      * 编辑员工信息
      * */
     void update(EmployeeDTO employeeDTO);
+
+    /**
+     * 修改密码
+     * */
+    void updatePassword(Integer id, String oldPassword, String newPassword);
 }
