@@ -87,13 +87,14 @@ public class EmployeeServiceImpl implements EmployeeService {
         employee.setStatus(StatusConstant.ENABLE);
         // 设置密码，默认密码123456
         employee.setPassword(DigestUtils.md5DigestAsHex(PasswordConstant.DEFAULT_PASSWORD.getBytes()));
-        // 设置创建时间和修改时间
+        // 使用AOP进行公共字段赋值，可以删除此部分赋值操作
+/**        // 设置创建时间和修改时间
         employee.setCreateTime(LocalDateTime.now());
         employee.setUpdateTime(LocalDateTime.now());
         // 设置当前记录创建人id和修改人id
         // 后期需要改为当前登录用户的id
         employee.setCreateUser(BaseContext.getCurrentId());
-        employee.setUpdateUser(BaseContext.getCurrentId());
+        employee.setUpdateUser(BaseContext.getCurrentId());*/
 //        BaseContext.removeCurrentId();
 
         // Mapper层连接SQL
