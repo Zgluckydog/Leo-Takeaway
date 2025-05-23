@@ -92,8 +92,8 @@ public class CategoryServiceImpl implements CategoryService {
      * 根据类型查询分类
      * */
     @Override
-    public Category getByType(Integer type) {
-        Category category = categoryMapper.getByType(type);
+    public List<Category> getByType(Integer type) {
+        List<Category> category = categoryMapper.getByType(type);
         return category;
     }
     /**

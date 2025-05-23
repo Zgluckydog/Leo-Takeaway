@@ -29,7 +29,7 @@ public interface CategoryService {
     /**
      * 根据类型查询分类
      * */
-    Category getByType(Integer type);
+    List<Category> getByType(Integer type);
     /**
      * 根据id删除分类
      * */

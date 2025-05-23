@@ -11,6 +11,8 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Mapper
 public interface CategoryMapper {
     /**
@@ -36,8 +38,7 @@ public interface CategoryMapper {
     /**
      * 根据类型查询分类
      * */
-    @Select("select * from category where type = #{type}")
-    Category getByType(Integer type);
+    List<Category> getByType(Integer type);
     /**
      * 根据id删除分类
      * */
