@@ -85,8 +85,15 @@ public class DishServiceImpl implements DishService {
      * 根据ID查询菜品
      * */
     @Override
-    public DishVO findById(Long id) {
-        DishVO dishVO = dishMapper.findById(id);
+    public DishVO findByIdWithFlavor(Long id) {
+        // 根据ID查询菜品数据
+        Dish dish = dishMapper.getById(id);
+        // 根据ID查询口味数据
+        List<DishFlavor> flavors = dishFlavorMapper.getByDishId(id);
+        // 将查询的数据封装到VO
+        DishVO dishVO = new DishVO();
+        BeanUtils.copyProperties(dish,dishVO);
+        dishVO.setFlavors(flavors);
         return dishVO;
     }
 
@@ -94,7 +101,23 @@ public class DishServiceImpl implements DishService {
      * 修改菜品
      * */
     @Override
-    public void updateDish(DishVO dishVO) {
+    public void updateDishWithFlavor(DishDTO dishDTO) {
+        // 其他信息修改
+        Dish dish = new Dish();
+        BeanUtils.copyProperties(dishDTO,dish);
+        dishMapper.update(dish);
+        // 口味信息修改
+        // 先删除
+        dishFlavorMapper.deleteByDishId(dishDTO.getId());
+        // 再修改
+        List<DishFlavor> flavors = dishDTO.getFlavors();
+        if(flavors != null && flavors.size() > 0){
+            flavors.forEach(flavor -> {
+                flavor.setDishId(dishDTO.getId());
+            });
+        }
+        // 插入n条数据
+        dishFlavorMapper.insertBatch(flavors);
 
     }
 
@@ -119,11 +142,16 @@ public class DishServiceImpl implements DishService {
             throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
         }
         // 删除菜品表中的菜品数据
-        for (Long id : ids) {
-            dishMapper.deleteById(id);
-            // 删除菜品关联的口味数据
-            dishFlavorMapper.deleteByDishId(id);
-        }
+//        for (Long id : ids) {
+//            dishMapper.deleteById(id);
+//            // 删除菜品关联的口味数据
+//            dishFlavorMapper.deleteByDishId(id);
+//        }
+
+        // 批量删除菜品表中的菜品数据
+        dishMapper.deleteByIds(ids);
+        // 批量删除菜品关联的口味数据
+        dishFlavorMapper.deleteByDishIds(ids);
 
 
     }

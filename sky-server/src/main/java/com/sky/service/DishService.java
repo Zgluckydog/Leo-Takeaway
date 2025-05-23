@@ -25,11 +25,11 @@ public interface DishService {
     /**
      * 根据ID查询菜品
      * */
-    DishVO findById(Long id);
+    DishVO findByIdWithFlavor(Long id);
     /**
      * 修改菜品
      * */
-    void updateDish(DishVO dishVO);
+    void updateDishWithFlavor(DishDTO dishDTO);
     /**
      * 批量删除菜品
      * */

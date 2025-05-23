@@ -12,7 +12,7 @@
         update dish
         <set>
             <if test="name!=null and name!=''">name = #{name},</if>
-            <if test="categoryId!=null">categoryId = #{categoryId},</if>
+            <if test="categoryId!=null and categoryId!=''">category_id = #{categoryId},</if>
             <if test="price!=null">price = #{price},</if>
             <if test="image!=null and image!=''">image = #{image},</if>
             <if test="description!=null and description!=''">description = #{description},</if>
@@ -24,6 +24,13 @@
         </set>
             where id = #{id}
     </update>
+    <delete id="deleteByIds">
+        delete from dish where id in
+                         <foreach collection="ids" item="id" open="(" close=")" separator=",">
+                             #{id}
+                         </foreach>
+
+    </delete>
     <select id="pageQuery" resultType="com.sky.vo.DishVO">
         select d.*, c.name categoryName
         from dish d
