@@ -11,6 +11,7 @@ import com.sky.vo.DishVO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -87,6 +88,17 @@ public class DishController {
         log.info("批量删除菜品：{}", ids);
         dishService.deleteDish(ids);
         return Result.success();
+    }
+
+    /**
+     * 根据分类ID查询查询菜品
+     * */
+    @ApiOperation("根据分类ID查询菜品")
+    @GetMapping("/list")
+    public Result<List<Dish>> list(Long categoryId) {
+        log.info("根据分类ID查询：{}", categoryId);
+        List<Dish> list = dishService.list(categoryId);
+        return Result.success(list);
     }
 
 }

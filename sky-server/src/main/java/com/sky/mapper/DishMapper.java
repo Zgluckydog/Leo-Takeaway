@@ -32,7 +32,8 @@ public interface DishMapper {
     void insert(Dish dish);
 
     /**
-     * 菜品起售停售
+     * 1.菜品起售停售
+     * 2.修改菜品
      * */
     @AutoFill(value = OperationType.UPDATE)
     void update(Dish dish);
@@ -48,9 +49,14 @@ public interface DishMapper {
 
     void deleteByIds(List<Long> ids);
 
+    /**
+     * 根据分类ID查询查询菜品
+     * */
+    List<Dish> list(Dish dish);
 
     /**
-     * 修改菜品
+     * 查询套餐中菜品是否有停售菜品
      * */
-
+    @Select("select d.* from dish d left join setmeal_dish sd on d.id = sd.dish_id where sd.setmeal_id = #{id}")
+    List<Dish> getBySetmealId(Long id);
 }
