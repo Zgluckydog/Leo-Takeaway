@@ -50,7 +50,7 @@ public interface DishMapper {
     void deleteByIds(List<Long> ids);
 
     /**
-     * 根据分类ID查询查询菜品
+     * 根据分类ID查询菜品
      * */
     List<Dish> list(Dish dish);
 

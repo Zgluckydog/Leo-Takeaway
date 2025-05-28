@@ -39,4 +39,9 @@ public interface DishService {
      * 根据分类ID查询查询菜品
      * */
     List<Dish> list(Long categoryId);
+
+    /**
+     * 根据分类ID查询菜品和口味
+     * */
+    List<DishVO> listWithFlavor(Dish dish);
 }
